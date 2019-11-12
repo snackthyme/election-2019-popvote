@@ -29,6 +29,16 @@ export const MAJOR_PARTIES = {
     }
 };
 
+export const REVERSE_PARTIES = {
+    BLQ: 'Bloc Québécois',
+    CON: 'Conservative',
+    GRN: 'Green Party',
+    LIB: 'Liberal',
+    NDP: 'NDP-New Democratic Party',
+    PPC: 'People\'s Party',
+    OTH: 'Other'
+};
+
 export const PARTY_ORDER = [
     'Liberal',
     'Conservative',

@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+import _ from 'lodash';
 import VoteDisplay from './components/VoteDisplay';
 import './main.scss';
 
@@ -44,17 +45,32 @@ const loadData = async () => {
     return { results, popularVote, seats };
 };
 
-(async () => {
-    const { results, popularVote, seats } = await loadData();
-    const province = 'Alberta';
-    const party = 'Liberal';
-
-    const display = new VoteDisplay('#viz');
+const draw = (display, popularVote, seats, province, party) => {
     display.draw(popularVote, seats, province);
     display.drawLines(popularVote, seats, province, party);
+};
+
+(async () => {
+    const { results, popularVote, seats } = await loadData();
+    const provinces = _.sortBy(Object.keys(results));
+    const select = d3.select('#province-select');
+    select.selectAll('option')
+        .data(provinces)
+        .join('option')
+        .text(d => d);
+    select.property('value', provinces[0]);
+    
+    let province = provinces[0];
+    let party = 'Liberal';
+
+    const display = new VoteDisplay('#viz');
+    draw(display, popularVote, seats, province, party);
 
     window.addEventListener('resize', () => {
-        display.draw(popularVote, seats, province);
-        display.drawLines(popularVote, seats, province, party);
+        draw(display, popularVote, seats, province, party);
+    });
+    select.node().addEventListener('change', e => {
+        province = e.target.value;
+        draw(display, popularVote, seats, province, party);
     });
 })();
