@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 import PartyBar from './PartyBar';
-import Tracer from './Tracer';
+import Tracer from './Tracer/Tracer';
 import { MAJOR_PARTIES, PARTY_ORDER } from '../constants';
 
 export default class VoteDisplay {

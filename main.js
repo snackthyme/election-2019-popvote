@@ -1,5 +1,6 @@
 import * as d3 from 'd3';
 import VoteDisplay from './components/VoteDisplay';
+import './main.scss';
 
 const loadData = async () => {
     const results = {};
@@ -45,13 +46,15 @@ const loadData = async () => {
 
 (async () => {
     const { results, popularVote, seats } = await loadData();
+    const province = 'Alberta';
+    const party = 'Liberal';
 
     const display = new VoteDisplay('#viz');
-    display.draw(popularVote, seats, 'Alberta');
-    display.drawLines(popularVote, seats, 'Alberta', 'Conservative');
+    display.draw(popularVote, seats, province);
+    display.drawLines(popularVote, seats, province, party);
 
     window.addEventListener('resize', () => {
-        display.draw(popularVote, seats, 'Alberta');
-        display.drawLines(popularVote, seats, 'Alberta', 'Conservative');
+        display.draw(popularVote, seats, province);
+        display.drawLines(popularVote, seats, province, party);
     });
 })();

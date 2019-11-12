@@ -7,12 +7,13 @@ body {
     flex-direction: column;
     align-items: center;
     margin-top: 100px;
-}
 
-#viz svg {
-    width: 80%;
-}
+    svg {
+        width: 80%;
+        overflow: visible;
 
-#viz svg.bar-svg {
-    height: 120px;
+        &.bar-svg {
+            height: 120px;
+        }
+    }
 }
