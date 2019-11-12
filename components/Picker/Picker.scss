@@ -1,0 +1,17 @@
+div.picker {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+
+    div.picker-choice {
+        cursor: pointer;
+        font-size: 1.5em;
+        margin: 5px;
+        color: rgb(106,149,218);
+
+        &.selected {
+            color: rgb(48,102,190);
+        }
+    }
+}

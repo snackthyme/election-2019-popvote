@@ -2,6 +2,7 @@ import * as d3 from 'd3';
 import _ from 'lodash';
 import VoteDisplay from './components/VoteDisplay';
 import './main.scss';
+import Picker from './components/Picker/Picker';
 
 const loadData = async () => {
     const results = {};
@@ -53,24 +54,18 @@ const draw = (display, popularVote, seats, province, party) => {
 (async () => {
     const { results, popularVote, seats } = await loadData();
     const provinces = _.sortBy(Object.keys(results));
-    const select = d3.select('#province-select');
-    select.selectAll('option')
-        .data(provinces)
-        .join('option')
-        .text(d => d);
-    select.property('value', provinces[0]);
     
     let province = provinces[0];
-    let party = 'Liberal';
+    let party = 'Conservative';
 
+    const picker = new Picker('#viz', d => {
+        province = d;
+        draw(display, popularVote, seats, province, party);
+    });
     const display = new VoteDisplay('#viz');
     draw(display, popularVote, seats, province, party);
 
     window.addEventListener('resize', () => {
-        draw(display, popularVote, seats, province, party);
-    });
-    select.node().addEventListener('change', e => {
-        province = e.target.value;
         draw(display, popularVote, seats, province, party);
     });
 })();
