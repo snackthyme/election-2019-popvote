@@ -5,4 +5,14 @@ body {
 #viz {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+}
+
+#viz svg {
+    width: 80%;
+}
+
+#viz svg.bar-svg {
+    height: 120px;
 }

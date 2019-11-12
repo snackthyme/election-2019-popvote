@@ -14,9 +14,9 @@ export default class VoteDisplay {
         this.seatsBar = new PartyBar(this.container);
     }
 
-    draw(popVote, seats) {
-        this.popVoteBar.draw(popVote);
+    draw(popVote, seats, province) {
+        this.popVoteBar.draw(popVote, province);
         this.middle.draw(popVote, seats);
-        this.seatsBar.draw(seats);
+        this.seatsBar.draw(seats, province);
     }
 }

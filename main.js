@@ -1,15 +1,6 @@
 import * as d3 from 'd3';
 import VoteDisplay from './components/VoteDisplay';
 
-const majorParties = {
-    'Bloc Québécois': 'BLQ',
-    'Conservative': 'CON',
-    'Green Party': 'GRN',
-    'Liberal': 'LIB',
-    'NDP-New Democratic Party': 'NDP',
-    'People\'s Party': 'PPC'
-};
-
 const loadData = async () => {
     const results = {};
     const popularVote = {};
@@ -54,9 +45,11 @@ const loadData = async () => {
 
 (async () => {
     const { results, popularVote, seats } = await loadData();
-    console.log(results);
-    console.log(popularVote);
-    console.log(seats);
 
     const display = new VoteDisplay('#viz');
+    display.draw(popularVote, seats, 'Alberta');
+
+    window.addEventListener('resize', () => {
+        display.draw(popularVote, seats, 'Alberta');
+    });
 })();
