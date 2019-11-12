@@ -1,6 +1,7 @@
 import * as d3 from 'd3';
 import PartyBar from './PartyBar';
 import Tracer from './Tracer';
+import { MAJOR_PARTIES, PARTY_ORDER } from '../constants';
 
 export default class VoteDisplay {
     constructor(container) {
@@ -14,9 +15,32 @@ export default class VoteDisplay {
         this.seatsBar = new PartyBar(this.container);
     }
 
+    static sortedData(data, province) {
+        const groups = [];
+        let otherTotal = 0;
+        Object.entries(data[province]).forEach(pair => {
+            if(pair[0] === 'total') { return; }
+            if (MAJOR_PARTIES.hasOwnProperty(pair[0])) {
+                groups.push(pair);
+            } else {
+                otherTotal += pair[1];
+            }
+        });
+        groups.push(['Other', otherTotal]);
+
+        return _.sortBy(groups, ([party, _]) => PARTY_ORDER.indexOf(party));
+    }
+
     draw(popVote, seats, province) {
-        this.popVoteBar.draw(popVote, province);
-        this.middle.draw(popVote, seats);
-        this.seatsBar.draw(seats, province);
+        const sortedPop = VoteDisplay.sortedData(popVote, province);
+        const sortedSeats = VoteDisplay.sortedData(seats, province);
+        this.popVoteBar.draw(sortedPop, popVote[province].total);
+        this.seatsBar.draw(sortedSeats, seats[province].total);
+    }
+    
+    drawLines(popVote, seats, province, party) {
+        const sortedPop = VoteDisplay.sortedData(popVote, province);
+        const sortedSeats = VoteDisplay.sortedData(seats, province);
+        this.middle.draw(sortedPop, popVote[province].total, sortedSeats, seats[province].total, party);
     }
 }

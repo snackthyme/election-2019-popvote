@@ -48,8 +48,10 @@ const loadData = async () => {
 
     const display = new VoteDisplay('#viz');
     display.draw(popularVote, seats, 'Alberta');
+    display.drawLines(popularVote, seats, 'Alberta', 'Conservative');
 
     window.addEventListener('resize', () => {
         display.draw(popularVote, seats, 'Alberta');
+        display.drawLines(popularVote, seats, 'Alberta', 'Conservative');
     });
 })();
