@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-import PartyBar from './PartyBar';
+import PartyBar from './PartyBar/PartyBar';
 import Tracer from './Tracer/Tracer';
 import { MAJOR_PARTIES, PARTY_ORDER } from '../constants';
 
@@ -32,10 +32,18 @@ export default class VoteDisplay {
     }
 
     draw(popVote, seats, province) {
+        const onMouseMove = d => {
+            this.drawLines(popVote, seats, province, d);
+        };
+
+        const onMouseOut = d => {
+            this.middle.hide();
+        };
+
         const sortedPop = VoteDisplay.sortedData(popVote, province);
         const sortedSeats = VoteDisplay.sortedData(seats, province);
-        this.popVoteBar.draw(sortedPop, popVote[province].total);
-        this.seatsBar.draw(sortedSeats, seats[province].total);
+        this.popVoteBar.draw(sortedPop, popVote[province].total, onMouseMove, onMouseOut);
+        this.seatsBar.draw(sortedSeats, seats[province].total, onMouseMove, onMouseOut);
     }
     
     drawLines(popVote, seats, province, party) {

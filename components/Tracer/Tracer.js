@@ -26,18 +26,30 @@ export default class Tracer {
         const topWidth = widthAccessor(partyVote, popTotal, rect);
         const bottomWidth = widthAccessor(partySeats, seatsTotal, rect);
 
-        this.leftLine
-            .attr('x1', topX)
-            .attr('y1', 0)
-            .attr('x2', bottomX)
-            .attr('y2', rect.height)
-            .style('stroke', stroke);
+        if (bottomWidth > 0) {
+            this.leftLine
+                .attr('x1', topX)
+                .attr('y1', 0)
+                .attr('x2', bottomX)
+                .attr('y2', rect.height)
+                .style('stroke', stroke)
+                .style('opacity', 1);
 
-        this.rightLine
-            .attr('x1', topX + topWidth)
-            .attr('y1', 0)
-            .attr('x2', bottomX + bottomWidth)
-            .attr('y2', rect.height)
-            .style('stroke', stroke);
+            this.rightLine
+                .attr('x1', topX + topWidth)
+                .attr('y1', 0)
+                .attr('x2', bottomX + bottomWidth)
+                .attr('y2', rect.height)
+                .style('stroke', stroke)
+                .style('opacity', 1);
+        } else {
+            this.leftLine.style('opacity', 0);
+            this.rightLine.style('opacity', 0);
+        }
+    }
+
+    hide() {
+        this.leftLine.style('opacity', 0);
+        this.rightLine.style('opacity', 0);
     }
 }

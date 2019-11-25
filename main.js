@@ -48,7 +48,6 @@ const loadData = async () => {
 
 const draw = (display, popularVote, seats, province, party) => {
     display.draw(popularVote, seats, province);
-    display.drawLines(popularVote, seats, province, party);
 };
 
 (async () => {
