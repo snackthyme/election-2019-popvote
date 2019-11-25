@@ -3,4 +3,13 @@ svg.line-svg {
         stroke-width: 2px;
         stroke-dasharray: 10 5;
     }
+
+    text {
+        dominant-baseline: middle;
+        text-anchor: middle;
+
+        &.top-text {
+            font-size: 1.5em;
+        }
+    }
 }

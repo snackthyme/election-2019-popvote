@@ -57,11 +57,12 @@ const draw = (display, popularVote, seats, province, party) => {
     let province = provinces[0];
     let party = 'Conservative';
 
+    const display = new VoteDisplay('#viz');
     const picker = new Picker('#viz', d => {
         province = d;
         draw(display, popularVote, seats, province, party);
     });
-    const display = new VoteDisplay('#viz');
+
     draw(display, popularVote, seats, province, party);
 
     window.addEventListener('resize', () => {

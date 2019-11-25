@@ -10,6 +10,12 @@ export default class Tracer {
 
         this.leftLine = this.container.append('line');
         this.rightLine = this.container.append('line');
+        this.topText = this.container
+            .append('text')
+            .classed('top-text', true);
+        this.bottomText = this.container
+            .append('text')
+            .classed('bottom-text', true);
     }
 
     draw(popVote, popTotal, seats, seatsTotal, party) {
@@ -46,6 +52,20 @@ export default class Tracer {
             this.leftLine.style('opacity', 0);
             this.rightLine.style('opacity', 0);
         }
+    }
+
+    setText({ top, bottom }) {
+        const rect = this.container.node().getBoundingClientRect();
+
+        this.topText
+            .attr('x', rect.width / 2)
+            .attr('y', rect.height * 1 / 3)
+            .text(top);
+
+        this.bottomText
+            .attr('x', rect.width / 2)
+            .attr('y', rect.height * 2 / 3)
+            .text(bottom);
     }
 
     hide() {
